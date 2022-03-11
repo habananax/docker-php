@@ -1,0 +1,37 @@
+version: "3"
+services:
+  webserver:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8001:80"
+    volumes:
+      - ./web:/var/www/html
+      - ./apache/logs:/var/log/apache2
+    depends_on:
+      - "bbdd"
+
+  bbdd:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: iaw_db
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_PORT: 3306
+    volumes:
+#      - ./.db_data:/var/lib/mysql
+      - ./mysql/:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    environment:
+      PMA_HOST: "bbdd"
+      PMA_USER: "root"
+      PMA_PASSWORD: "secret"
+    depends_on:
+      - "bbdd"
+    ports:
+      - "8081:80"
