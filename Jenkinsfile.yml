@@ -24,7 +24,7 @@ pipeline {
                         stage('Add DB Tables') {
                             steps {
                                 echo 'Añadiendo las tablas de la Base de Datos...'
-                                sh 'docker-compose exec -T webserver sh -c "mysql -u root -psecret iaw_db < /dump/init.sql || true"'
+                                sh 'docker-compose exec -T webserver sh -c "mysql -u root -psecret iaw_db < /dump/init.sql" || true'
                             }
                         }
                         stage('Installing Composer') {
