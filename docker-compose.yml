@@ -8,7 +8,6 @@ services:
       - "8001:80"
     volumes:
       - ./web:/var/www/html
-      - ./phpfiles:/var/www/phpfiles
       - ./apache/logs:/var/log/apache2
     depends_on:
       - "bbdd"
