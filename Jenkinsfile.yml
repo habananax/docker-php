@@ -18,7 +18,7 @@ pipeline {
                         stage('Add PHP Files') {
                             steps {
                                 echo 'Añadiendo los ficheros PHP a producción...'
-                                sh 'cp phpfiles/* web/"'
+                                sh 'cp phpfiles/* web/'
                             }
                         }
                         stage('Add DB Tables') {
@@ -30,7 +30,7 @@ pipeline {
                         stage('Installing Composer') {
                             steps {
                                 echo 'Instalando Composer...'
-                                sh 'cd web/ && composer install || true"'
+                                sh 'cd web/ && composer install || true'
                             }
                         }
                 }
