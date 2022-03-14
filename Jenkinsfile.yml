@@ -12,25 +12,25 @@ pipeline {
                         stage('Deploy Docker Compose') {
                             steps {
                                 echo 'Desplegando Compose...'
-                                sh 'docker-compose up -d'
+                                sh 'sudo docker-compose up -d'
                             }
                         }
                         stage('Add PHP Files') {
                             steps {
                                 echo 'Añadiendo los ficheros PHP a producción...'
-                                sh 'cp phpfiles/* web/'
+                                sh 'sudo cp phpfiles/* web/'
                             }
                         }
                         stage('Add DB Tables') {
                             steps {
                                 echo 'Añadiendo las tablas de la Base de Datos...'
-                                sh 'docker-compose exec -T webserver sh -c "mysql -u root -psecret iaw_db < /dump/init.sql" || true'
+                                sh 'sudo docker-compose exec -T webserver sh -c "mysql -u root -psecret iaw_db < /dump/init.sql" || true'
                             }
                         }
                         stage('Installing Composer') {
                             steps {
                                 echo 'Instalando Composer...'
-                                sh 'cd web/ && composer install || true'
+                                sh 'sudo cd web/ && composer install || true'
                             }
                         }
                 }
